@@ -1,5 +1,5 @@
-import React, { Component} from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import {
   Box,
   Button,
@@ -8,44 +8,45 @@ import {
   FormField,
   Form,
   CheckBox,
-} from 'grommet';
+} from "grommet";
 
-import './App.css';
+import "./App.css";
 
 const theme = {
   global: {
     colors: {
-      brand: '#000000',
+      brand: "#000000",
       focus: "#000000",
       active: "#000000",
     },
     font: {
-      family: 'Lato',
+      family: "Lato",
     },
   },
 };
 
 const AppBar = (props) => (
   <Box
-    tag='header'
-    direction='row'
-    align='center'
-    justify='between'
-    background='brand'
-    pad={{ left: 'medium', right: 'small', vertical: 'small' }}
-    style={{ zIndex: '1' }}
-    {...props} />
+    tag="header"
+    direction="row"
+    align="center"
+    justify="between"
+    background="brand"
+    pad={{ left: "medium", right: "small", vertical: "small" }}
+    style={{ zIndex: "1" }}
+    {...props}
+  />
 );
 
 class LogIn extends Component {
-  state = { isDoctor: false }
+  state = { isDoctor: false };
 
   constuctor() {
     this.routeChange = this.routeChange.bind(this);
   }
 
   routeChange() {
-    let path = '/Home';
+    let path = "/Home";
     this.props.history.push(path);
   }
 
@@ -55,27 +56,28 @@ class LogIn extends Component {
     return (
       <Grommet theme={theme} full>
         <AppBar>
-        <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+          <a style={{ color: "inherit", textDecoration: "inherit" }} href="/">
+            <Heading level="3" margin="none">
+              HMS
+            </Heading>
+          </a>
         </AppBar>
 
-        <Box
-          fill
-          align="center"
-          justify="top"
-          pad="medium">
-          <Box
-            width="medium"
-            pad="medium">
+        <Box fill align="center" justify="top" pad="medium">
+          <Box width="medium" pad="medium">
             <Form
-
-              onReset={event => console.log(event)}
+              onReset={(event) => console.log(event)}
               onSubmit={({ value }) => {
                 console.log("Submit", value);
                 if (value.isDoc === true) {
-                  fetch("http://localhost:3001/checkDoclogin?email=" + value.email +
-                    "&password=" + value.password)
-                    .then(res => res.json())
-                    .then(res => {
+                  fetch(
+                    "http://localhost:3001/checkDoclogin?email=" +
+                      value.email +
+                      "&password=" +
+                      value.password
+                  )
+                    .then((res) => res.json())
+                    .then((res) => {
                       if (res.data.length === 0) {
                         window.alert("Invalid Log In");
                       } else {
@@ -84,10 +86,14 @@ class LogIn extends Component {
                       }
                     });
                 } else {
-                  fetch("http://localhost:3001/checklogin?email=" + value.email +
-                    "&password=" + value.password)
-                    .then(res => res.json())
-                    .then(res => {
+                  fetch(
+                    "http://localhost:3001/checklogin?email=" +
+                      value.email +
+                      "&password=" +
+                      value.password
+                  )
+                    .then((res) => res.json())
+                    .then((res) => {
                       if (res.data.length === 0) {
                         window.alert("Invalid Log In");
                       } else {
@@ -96,22 +102,24 @@ class LogIn extends Component {
                       }
                     });
                 }
-              }
-              }>
+              }}
+            >
               <FormField
                 color="#00739D"
                 label="Email"
                 name="email"
                 type="email"
-                placeholder = "Please enter your email."
-                required />
+                placeholder="Please enter your email."
+                required
+              />
               <FormField
                 color="#00739D"
-                type='password'
+                type="password"
                 label="Password"
                 name="password"
-                placeholder = "Please enter your password."
-                required />
+                placeholder="Please enter your password."
+                required
+              />
               <FormField
                 component={CheckBox}
                 checked={isDoctor}
@@ -119,16 +127,23 @@ class LogIn extends Component {
                 label="I'm a doctor"
                 name="isDoc"
                 onChange={(event) => {
-                  this.setState({ isDoctor: event.target.checked })
+                  this.setState({ isDoctor: event.target.checked });
                 }}
               />
-              <Box direction="column" align="center" >
-                <Button style={{ textAlign: 'center' , margin:'1rem'}}
-                 type="submit" label="Log In" fill="horizontal" primary />
-                <Button label="Create Account"
-                  style={{ textAlign: 'center' , margin:'0.5rem'}}
+              <Box direction="column" align="center">
+                <Button
+                  style={{ textAlign: "center", margin: "1rem" }}
+                  type="submit"
+                  label="Log In"
                   fill="horizontal"
-                  href="/createAcc" />
+                  primary
+                />
+                <Button
+                  label="Create Account"
+                  style={{ textAlign: "center", margin: "0.5rem" }}
+                  fill="horizontal"
+                  href="/createAcc"
+                />
               </Box>
             </Form>
           </Box>
